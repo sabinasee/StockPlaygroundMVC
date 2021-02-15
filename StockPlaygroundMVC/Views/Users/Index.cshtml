@@ -1,0 +1,43 @@
+﻿@*@model IEnumerable<User>*@
+@using StockBL;
+@model IEnumerable<UserAdv>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@{ 
+    int nrRow = 0;
+}
+<h1>User accounts list</h1>
+<p>
+    <a asp-action="Create">Create new account</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>            
+            <th>User no</th>
+            <th>User name</th>
+            <th>User pass</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ foreach (var item in Model)
+            {
+                nrRow++;
+                <tr>
+                    <td>@nrRow</td>
+                    <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                    <td>@item.UserPassword</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.UserId">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.UserId">Delete</a>
+                    </td>
+                </tr>
+                }
+            }
+    </tbody>
+
+</table>

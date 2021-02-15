@@ -1,0 +1,54 @@
+﻿@using StockBL;
+@model IEnumerable<Symbols>
+
+@{ Layout = "_Layout"; ViewBag.Title = "Search symbol";}
+
+<h2>Search symbol <a asp-action="Index" class="btn btn-sm btn-primary">Back</a></h2>
+<h3>@ViewBag.StatusCode</h3>
+<form method="post">
+    <div class="form-group">
+        <label for="sym">Symbol:</label>
+        <input class="form-control" required="@(true)" name="sym" />
+    </div>
+    <div class="text-center panel-body">
+        <button type="submit" class="btn btn-sm btn-primary">Search</button>
+    </div>
+</form>
+
+@if (Model != null)
+{
+    <h2>Symbols results</h2>
+    <table class="table table-sm table-striped table-bordered m-2">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Region</th>
+                <th>Market Open</th>
+                <th>Market Close</th>
+                <th>Timezone</th>
+                <th>Currency</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.Symbol</td>
+                    <td>@r.Name</td>
+                    <td>@r.Type</td>
+                    <td>@r.Region</td>
+                    <td>@r.MarketOpen</td>
+                    <td>@r.MarketClose</td>
+                    <td>@r.Timezone</td>
+                    <td>@r.Currency</td>
+                    <td>
+                        <a asp-action="AddToWatchList" asp-route-id="@r.Symbol">Add to watchlist</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
